@@ -6,11 +6,14 @@ using ChecklistInstaller.Services;
 
 namespace ChecklistInstaller
 {
+    // Tela de acompanhamento: aqui ficam as ações das etapas de um processo.
+
     public partial class ProcessoWindow : Window
     {
         private readonly Processo processo;
         private readonly JsonService jsonService;
 
+        // Ao abrir, mostra os dados do processo escolhido, suas etapas e o progresso atual.
         public ProcessoWindow(Processo processo)
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace ChecklistInstaller
             AtualizarProgresso();
         }
 
+        // Refaz a lista na tela após uma mudança, removendo a versão anterior para não duplicar etapas.
         private void CarregarEtapasNaTela()
         {
             painelEtapas.Children.Clear();
@@ -41,6 +45,7 @@ namespace ChecklistInstaller
             }
         }
 
+        // Monta o cartão de uma etapa. Para mudar cores, tamanhos e botões da etapa, preciso começar aqui.
         private void CriarCardEtapa(Etapa etapa)
         {
             Border card =
@@ -67,6 +72,7 @@ namespace ChecklistInstaller
                 new Thickness(0, 0, 0, 8);
 
 
+            // Divide o cartão em três espaços: descrição, botão Editar e botão de exclusão.
             Grid grid =
                 new Grid();
 
@@ -92,10 +98,7 @@ namespace ChecklistInstaller
                     Width = new GridLength(55)
                 });
 
-
-            // ==========================================
-            // CHECKBOX
-            // ==========================================
+            // A caixinha mostra se a etapa foi concluída. Marcar ou desmarcar chama EtapaAlterada.
 
             CheckBox checkBox =
                 new CheckBox();
@@ -106,6 +109,7 @@ namespace ChecklistInstaller
             checkBox.IsChecked =
                 etapa.Concluida;
 
+            // Guarda a etapa junto da caixinha para sabermos qual atualizar quando houver um clique.
             checkBox.Tag =
                 etapa;
 
@@ -138,10 +142,7 @@ namespace ChecklistInstaller
                 checkBox
             );
 
-
-            // ==========================================
             // BOTÃO EDITAR
-            // ==========================================
 
             Button botaoEditar =
                 new Button();
@@ -189,10 +190,7 @@ namespace ChecklistInstaller
                 botaoEditar
             );
 
-
-            // ==========================================
             // BOTÃO EXCLUIR
-            // ==========================================
 
             Button botaoExcluir =
                 new Button();
@@ -249,6 +247,7 @@ namespace ChecklistInstaller
             );
         }
 
+        // Botão Adicionar: exige uma descrição, cria uma etapa pendente e salva o processo.
         private void BtnAdicionarEtapa_Click(
             object sender,
             RoutedEventArgs e)
@@ -288,6 +287,7 @@ namespace ChecklistInstaller
             SalvarProcesso();
         }
 
+        // Ao marcar ou desmarcar uma etapa, atualiza o progresso e salva a mudança na hora.
         private void EtapaAlterada(
             object sender,
             RoutedEventArgs e)
@@ -306,6 +306,8 @@ namespace ChecklistInstaller
             SalvarProcesso();
         }
 
+        // Abre a edição da descrição. Só atualiza a tela e salva se a edição for confirmada.
+        // Os campos e a conferência do texto vao ficar em EditarEtapaWindow.
         private void BtnEditarEtapa_Click(
             object sender,
             RoutedEventArgs e)
@@ -334,6 +336,7 @@ namespace ChecklistInstaller
             }
         }
 
+        // Pede confirmação antes de remover a etapa; depois atualiza o progresso e salva.
         private void BtnExcluirEtapa_Click(
             object sender,
             RoutedEventArgs e)
@@ -367,6 +370,8 @@ namespace ChecklistInstaller
             }
         }
 
+        // Conta as etapas concluídas e atualiza o texto e a barra de progresso.
+        // Se quiser mudar como o avanço é calculado nesta tela, é aqui. (Tomo bastante cuidado aqui!)
         private void AtualizarProgresso()
         {
             int totalEtapas =
@@ -398,10 +403,12 @@ namespace ChecklistInstaller
             }
             else
             {
+                // Sem etapas, a barra fica vazia e não há divisão por zero.
                 barraProgresso.Value = 0;
             }
         }
 
+        // Salva o processo inteiro, incluindo as etapas. A pasta e o arquivo são definidos em Services/JsonService.cs.
         private void SalvarProcesso()
         {
             jsonService.Salvar(

@@ -8,10 +8,13 @@ using ChecklistInstaller.Services;
 
 namespace ChecklistInstaller
 {
+    // Tela inicial: lista os processos e reúne os caminhos para criar, abrir, editar e excluir.
+    // A estrutura geral fica em MainWindow.xaml; os cartões são desenhados aqui em CriarCardProcesso.
     public partial class MainWindow : Window
     {
         private readonly JsonService jsonService;
 
+        // Ao iniciar, prepara a tela e busca os processos já salvos no computador.
         public MainWindow()
         {
             InitializeComponent();
@@ -21,6 +24,7 @@ namespace ChecklistInstaller
             CarregarProcessos();
         }
 
+        // Recarrega a lista e a quantidade de processos, substituindo os cartões antigos.
         private void CarregarProcessos()
         {
             painelProcessos.Children.Clear();
@@ -39,8 +43,10 @@ namespace ChecklistInstaller
             }
         }
 
+        // Monta o resumo de um processo, com progresso e botões. Ajuste o visual dos cartões aqui.
         private void CriarCardProcesso(Processo processo)
         {
+            // Conta as tarefas concluídas para mostrar o avanço na tela inicial.
             int concluidas = 0;
 
             foreach (Etapa etapa in processo.Etapas)
@@ -66,9 +72,7 @@ namespace ChecklistInstaller
             string resumoTarefas =
                 $"{total} tarefas • {concluidas} concluídas";
 
-            // ==========================================
-            // CARD
-            // ==========================================
+            // Aparência do cartão: fundo, borda, cantos, espaço entre cartões e sombra.
 
             Border card = new Border
             {
@@ -92,9 +96,7 @@ namespace ChecklistInstaller
                 }
             };
 
-            // ==========================================
-            // GRID DO CARD
-            // ==========================================
+            // Distribui o espaço entre o resumo clicável e os botões Editar e Excluir.
 
             Grid grid = new Grid
             {
@@ -125,9 +127,7 @@ namespace ChecklistInstaller
                 }
             );
 
-            // ==========================================
-            // ÁREA PARA ABRIR O PROCESSO
-            // ==========================================
+            // Clicar no resumo abre as etapas. O estilo BotaoCard define a aparência dessa área.
 
             Button botaoAbrir = new Button();
 
@@ -145,9 +145,7 @@ namespace ChecklistInstaller
             botaoAbrir.Click +=
                 BtnAbrirProcesso_Click;
 
-            // ==========================================
-            // INFORMAÇÕES
-            // ==========================================
+            // Textos do resumo: título, sistema, responsável, tarefas e barra de progresso.
 
             StackPanel informacoes =
                 new StackPanel();
@@ -256,9 +254,7 @@ namespace ChecklistInstaller
                 botaoAbrir
             );
 
-            // ==========================================
-            // BOTÃO EDITAR
-            // ==========================================
+            // Aparência do botão Editar; a abertura do formulário fica em BtnEditarProcesso_Click.
 
             Button botaoEditar =
                 new Button();
@@ -298,9 +294,7 @@ namespace ChecklistInstaller
                 botaoEditar
             );
 
-            // ==========================================
-            // BOTÃO EXCLUIR
-            // ==========================================
+            // Aparência do botão Excluir; a confirmação e a exclusão ficam em BtnExcluirProcesso_Click.
 
             Button botaoExcluir =
                 new Button();
@@ -343,9 +337,7 @@ namespace ChecklistInstaller
                 botaoExcluir
             );
 
-            // ==========================================
-            // FINAL DO CARD
-            // ==========================================
+            // Junta as partes do cartão e coloca o resultado na lista da tela inicial.
 
             card.Child =
                 grid;
@@ -355,6 +347,7 @@ namespace ChecklistInstaller
             );
         }
 
+        // Abre o cadastro. Se a criação for confirmada, salva o processo e abre a tela de etapas.
         private void BtnNovoProcesso_Click(
             object sender,
             RoutedEventArgs e)
@@ -382,6 +375,7 @@ namespace ChecklistInstaller
             }
         }
 
+        // Descobre qual processo foi clicado e encaminha para AbrirProcesso.
         private void BtnAbrirProcesso_Click(
             object sender,
             RoutedEventArgs e)
@@ -397,6 +391,8 @@ namespace ChecklistInstaller
             );
         }
 
+        // Abre a edição dos dados e renova a lista após a confirmação.
+        // Quem confere os campos e salva essa edição é EditarProcessoWindow.
         private void BtnEditarProcesso_Click(
             object sender,
             RoutedEventArgs e)
@@ -421,6 +417,7 @@ namespace ChecklistInstaller
             }
         }
 
+        // Pede confirmação e apaga o arquivo do processo, incluindo todas as suas etapas.
         private void BtnExcluirProcesso_Click(
             object sender,
             RoutedEventArgs e)
@@ -450,6 +447,7 @@ namespace ChecklistInstaller
             }
         }
 
+        // Mostra as etapas e esconde a tela inicial enquanto o processo estiver aberto.
         private void AbrirProcesso(
             Processo processo)
         {
@@ -462,6 +460,7 @@ namespace ChecklistInstaller
 
             Hide();
 
+            // Ao fechar as etapas, volta à tela inicial e busca o progresso atualizado nos arquivos.
             janela.Closed += (s, e) =>
             {
                 Show();

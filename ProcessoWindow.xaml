@@ -12,7 +12,7 @@
 
     <Grid>
 
-        <!-- LOGO DE FUNDO -->
+        <!-- Marca de fundo: ajuste aqui a imagem, o tamanho e a transparência. -->
         <Image Source="/CheckQ;component/Assets/checklist_logo_transparente.png"
                Width="430"
                Height="430"
@@ -23,7 +23,7 @@
                IsHitTestVisible="False"/>
 
 
-        <!-- CONTEÚDO -->
+        <!-- Organização da tela: cabeçalho, lista de etapas, campo para adicionar e progresso. -->
         <Grid Margin="30">
 
             <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
             </Grid.RowDefinitions>
 
 
-            <!-- CABEÇALHO -->
+            <!-- Título, responsável e sistema: os valores são preenchidos ao abrir ProcessoWindow.xaml.cs. -->
             <StackPanel Grid.Row="0"
                         Margin="0,0,0,20">
 
@@ -56,7 +56,7 @@
             </StackPanel>
 
 
-            <!-- LISTA DE ETAPAS -->
+            <!-- Área da lista. O visual de cada etapa fica em CriarCardEtapa, no arquivo ProcessoWindow.xaml.cs. -->
             <Border Grid.Row="1"
                     Background="#EAF0F5"
                     BorderBrush="#D9E2EA"
@@ -74,7 +74,7 @@
             </Border>
 
 
-            <!-- ADICIONAR ETAPA -->
+            <!-- Campo e botão para uma nova etapa. A ação fica em BtnAdicionarEtapa_Click. -->
             <Border Grid.Row="2"
                     Background="White"
                     BorderBrush="#D9E2EA"
@@ -125,7 +125,7 @@
             </Border>
 
 
-            <!-- PROGRESSO -->
+            <!-- Visual do progresso. A contagem e o preenchimento da barra ficam em AtualizarProgresso. -->
             <StackPanel Grid.Row="3">
 
                 <TextBlock x:Name="txtProgresso"

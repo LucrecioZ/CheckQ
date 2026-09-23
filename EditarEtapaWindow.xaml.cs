@@ -7,6 +7,7 @@ namespace ChecklistInstaller
     {
         private readonly Etapa etapa;
 
+        // Abre o formulário com a descrição atual da etapa escolhida.
         public EditarEtapaWindow(Etapa etapa)
         {
             InitializeComponent();
@@ -17,6 +18,7 @@ namespace ChecklistInstaller
                 etapa.Descricao;
         }
 
+        // Exige uma descrição e confirma a alteração. ProcessoWindow salva o resultado no arquivo.
         private void BtnSalvar_Click(
             object sender,
             RoutedEventArgs e)
@@ -44,6 +46,7 @@ namespace ChecklistInstaller
             Close();
         }
 
+        // Fecha sem aplicar o texto digitado à etapa.
         private void BtnCancelar_Click(
             object sender,
             RoutedEventArgs e)

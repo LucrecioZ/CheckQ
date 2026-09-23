@@ -10,6 +10,7 @@ namespace ChecklistInstaller
         private readonly Processo processo;
         private readonly JsonService jsonService;
 
+        // Abre o formulário preenchido com os dados do processo escolhido.
         public EditarProcessoWindow(Processo processo)
         {
             InitializeComponent();
@@ -24,6 +25,7 @@ namespace ChecklistInstaller
             txtTitulo.Text = processo.Titulo;
         }
 
+        // Busca os sistemas cadastrados para a pessoa escolher ou digitar outro nome.
         private void CarregarSistemas()
         {
             List<string> sistemas =
@@ -32,6 +34,8 @@ namespace ChecklistInstaller
             cmbSistema.ItemsSource = sistemas;
         }
 
+        // Confere os campos obrigatórios, atualiza os dados e salva o processo.
+        // As regras e os avisos de preenchimento ficam logo abaixo.
         private void BtnSalvar_Click(
             object sender,
             RoutedEventArgs e)
@@ -93,6 +97,7 @@ namespace ChecklistInstaller
             Close();
         }
 
+        // Fecha sem aplicar as mudanças digitadas no formulário.
         private void BtnCancelar_Click(
             object sender,
             RoutedEventArgs e)

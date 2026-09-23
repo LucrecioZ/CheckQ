@@ -9,6 +9,7 @@
         ResizeMode="NoResize"
         Background="#F5F7FB">
 
+    <!-- Estilo local BotaoPrincipal. O botão Criar processo abaixo usa outro estilo: BotaoPrimario. -->
     <Window.Resources>
 
         <Style x:Key="BotaoPrincipal"
@@ -66,7 +67,7 @@
         </StackPanel>
 
 
-        <!-- USUÁRIO -->
+        <!-- Campo do responsável. A obrigatoriedade é conferida em BtnCriar_Click, no arquivo NovoProcessoWindow.xaml.cs. -->
 
         <StackPanel Grid.Row="1"
                     Margin="0,0,0,15">
@@ -83,7 +84,7 @@
         </StackPanel>
 
 
-        <!-- SISTEMA -->
+        <!-- Permite escolher um sistema salvo ou digitar um novo. As opções vêm de CarregarSistemas. -->
 
         <StackPanel Grid.Row="2"
                     Margin="0,0,0,15">
@@ -119,7 +120,7 @@
         </StackPanel>
 
 
-        <!-- INFORMAÇÃO -->
+        <!-- Texto de ajuda sobre a escolha ou o cadastro de um sistema. -->
 
         <Border Grid.Row="4"
                 Background="#EAECF2"
@@ -135,7 +136,7 @@
         </Border>
 
 
-        <!-- BOTÕES -->
+        <!-- Ações do formulário. Veja BtnCancelar_Click e BtnCriar_Click em NovoProcessoWindow.xaml.cs. -->
 
         <StackPanel Grid.Row="5"
                     Orientation="Horizontal"
