@@ -5,9 +5,10 @@
         Icon="/CheckQ;component/Assets/CheckQ_icon_1024.png"
         Width="500"
         Height="500"
+        Foreground="{DynamicResource AzulEscuro}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#F5F7FB">
+        Background="{DynamicResource Fundo}">
 
     <Grid Margin="30">
 
@@ -26,11 +27,11 @@
             <TextBlock Text="Editar processo"
                        FontSize="26"
                        FontWeight="Bold"
-                       Foreground="#20232A"/>
+                       Foreground="{DynamicResource AzulEscuro}"/>
 
             <TextBlock Text="Altere as informações do processo"
                        FontSize="13"
-                       Foreground="#707784"
+                       Foreground="{DynamicResource TextoSecundario}"
                        Margin="0,5,0,0"/>
 
         </StackPanel>
@@ -77,7 +78,7 @@
         </StackPanel>
 
         <Border Grid.Row="4"
-                Background="#EAECF2"
+                Background="{DynamicResource Painel}"
                 CornerRadius="8"
                 Padding="15"
                 VerticalAlignment="Top">
@@ -85,7 +86,7 @@
             <TextBlock Text="A alteração não apaga as etapas ou o progresso deste processo."
                        TextWrapping="Wrap"
                        FontSize="13"
-                       Foreground="#666D78"/>
+                       Foreground="{DynamicResource TextoSecundario}"/>
 
         </Border>
 

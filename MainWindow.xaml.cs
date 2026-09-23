@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -18,6 +18,8 @@ namespace ChecklistInstaller
         public MainWindow()
         {
             InitializeComponent();
+
+            AtualizarBotaoTema();
 
             jsonService = new JsonService();
 
@@ -41,6 +43,25 @@ namespace ChecklistInstaller
             {
                 CriarCardProcesso(processo);
             }
+        }
+
+        // O botão mostra o modo para o qual podemos mudar com o próximo clique.
+        private void AtualizarBotaoTema()
+        {
+            btnAlternarTema.Content = App.Tema.ModoEscuro ? "Modo claro" : "Modo escuro";
+            btnAlternarTema.ToolTip = App.Tema.ModoEscuro
+                ? "Trocar para o modo claro" : "Trocar para o modo escuro";
+        }
+
+        private void BtnAlternarTema_Click(object sender, RoutedEventArgs e)
+        {
+            bool salvo = App.Tema.Alternar();
+            AtualizarBotaoTema();
+
+            if (!salvo)
+                MessageBox.Show(this,
+                    "O modo foi alterado, mas não foi possível guardar sua escolha para a próxima abertura.",
+                    "Preferência de aparência", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         // Monta o resumo de um processo, com progresso e botões. Ajuste o visual dos cartões aqui.
@@ -76,11 +97,9 @@ namespace ChecklistInstaller
 
             Border card = new Border
             {
-                Background = Brushes.White,
+                Background = (Brush)FindResource("Superficie"),
 
-                BorderBrush = new SolidColorBrush(
-                    Color.FromRgb(220, 228, 235)
-                ),
+                BorderBrush = (Brush)FindResource("Borda"),
 
                 BorderThickness = new Thickness(1),
 
@@ -161,9 +180,7 @@ namespace ChecklistInstaller
                         FontWeights.SemiBold,
 
                     Foreground =
-                        new SolidColorBrush(
-                            Color.FromRgb(25, 54, 82)
-                        ),
+                        (Brush)FindResource("AzulEscuro"),
 
                     Margin =
                         new Thickness(0, 0, 0, 7)
@@ -178,9 +195,7 @@ namespace ChecklistInstaller
                     FontSize = 13,
 
                     Foreground =
-                        new SolidColorBrush(
-                            Color.FromRgb(104, 119, 135)
-                        )
+                        (Brush)FindResource("TextoSecundario")
                 };
 
             TextBlock usuario =
@@ -192,9 +207,7 @@ namespace ChecklistInstaller
                     FontSize = 13,
 
                     Foreground =
-                        new SolidColorBrush(
-                            Color.FromRgb(104, 119, 135)
-                        ),
+                        (Brush)FindResource("TextoSecundario"),
 
                     Margin =
                         new Thickness(0, 3, 0, 10)
@@ -211,9 +224,7 @@ namespace ChecklistInstaller
                         FontWeights.SemiBold,
 
                     Foreground =
-                        new SolidColorBrush(
-                            Color.FromRgb(8, 127, 193)
-                        ),
+                        (Brush)FindResource("DestaqueTexto"),
 
                     Margin =
                         new Thickness(0, 0, 0, 7)
@@ -235,6 +246,14 @@ namespace ChecklistInstaller
                     HorizontalAlignment =
                         HorizontalAlignment.Left
                 };
+
+            // Mantém as cores do cartão ligadas ao modo escolhido.
+            card.SetResourceReference(Border.BackgroundProperty, "Superficie");
+            card.SetResourceReference(Border.BorderBrushProperty, "Borda");
+            titulo.SetResourceReference(TextBlock.ForegroundProperty, "AzulEscuro");
+            sistema.SetResourceReference(TextBlock.ForegroundProperty, "TextoSecundario");
+            usuario.SetResourceReference(TextBlock.ForegroundProperty, "TextoSecundario");
+            tarefas.SetResourceReference(TextBlock.ForegroundProperty, "DestaqueTexto");
 
             informacoes.Children.Add(titulo);
             informacoes.Children.Add(sistema);

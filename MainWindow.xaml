@@ -7,8 +7,9 @@
         Height="700"
         MinWidth="750"
         MinHeight="550"
+        Foreground="{DynamicResource AzulEscuro}"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource Fundo}">
+        Background="{DynamicResource Fundo}">
         
 
     <Grid Margin="35">
@@ -41,15 +42,25 @@
 
             </Grid.RowDefinitions>
 
+            <!-- Troca o modo de todas as telas e guarda a escolha para a próxima abertura. -->
+            <Button x:Name="btnAlternarTema"
+                    Grid.Row="0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Panel.ZIndex="1"
+                    Content="Modo escuro"
+                    Padding="14,9"
+                    Click="BtnAlternarTema_Click"/>
+
             <!-- CABEÇALHO -->
 
             <StackPanel Grid.Row="0"
                         Margin="0,0,0,30">
 
                 <TextBlock FontFamily="Segoe UI"
-                        FontSize="32"
+                        FontSize="50"
                         FontWeight="Bold">
-                    <Run Text="CHECK" Foreground="#1E3A56"/><Run Text="Q" Foreground="#0077C8"/>
+                    <Run Text="CHECK" Foreground="{DynamicResource AzulEscuro}"/><Run Text="Q" Foreground="{DynamicResource DestaqueTexto}"/>
                 </TextBlock>
                 
                 <StackPanel Orientation="Horizontal"
@@ -57,21 +68,21 @@
 
                     <Border Width="38"
                             Height="4"
-                            Background="{StaticResource AzulPrincipal}"
+                            Background="{DynamicResource AzulPrincipal}"
                             CornerRadius="2"
                             Margin="0,0,5,0"/>
 
                     <Border Width="22"
                             Height="4"
-                            Background="{StaticResource Vermelho}"
+                            Background="{DynamicResource Vermelho}"
                             CornerRadius="2"/>
 
                 </StackPanel>
 
 
                 <TextBlock Text="Gerencie seus processos de forma simples e rápida."
-                           FontSize="15"
-                           Foreground="{StaticResource TextoSecundario}"
+                           FontSize="22"
+                           Foreground="{DynamicResource TextoSecundario}"
                            Margin="0,10,0,0"/>
 
             </StackPanel>
@@ -93,14 +104,14 @@
                 <StackPanel Grid.Column="0">
 
                     <TextBlock Text="Seus processos"
-                               FontSize="20"
+                               FontSize="30"
                                FontWeight="SemiBold"
-                               Foreground="{StaticResource AzulEscuro}"/>
+                               Foreground="{DynamicResource AzulEscuro}"/>
 
                     <TextBlock x:Name="txtQuantidadeProcessos"
                                Text="0 processos"
-                               FontSize="13"
-                               Foreground="{StaticResource TextoSecundario}"
+                               FontSize="20"
+                               Foreground="{DynamicResource TextoSecundario}"
                                Margin="0,4,0,0"/>
 
                 </StackPanel>
@@ -119,8 +130,8 @@
             <!-- Área dos processos. Para mudar cada cartão, veja CriarCardProcesso em MainWindow.xaml.cs. -->
            
             <Border Grid.Row="2"
-                    Background="#25FFFFFF"
-                    BorderBrush="#30FFFFFF"
+                    Background="{DynamicResource Painel}"
+                    BorderBrush="{DynamicResource Borda}"
                     BorderThickness="1"
                     CornerRadius="14"
                     Padding="12">
@@ -137,8 +148,8 @@
             <!-- RODAPÉ -->
 
             <Border Grid.Row="3"
-                    Background="White"
-                    BorderBrush="{StaticResource Borda}"
+                    Background="{DynamicResource Superficie}"
+                    BorderBrush="{DynamicResource Borda}"
                     BorderThickness="1"
                     CornerRadius="9"
                     Padding="12"
@@ -146,7 +157,7 @@
 
                 <TextBlock Text="Selecione um processo para continuar."
                            FontSize="13"
-                           Foreground="{StaticResource TextoSecundario}"
+                           Foreground="{DynamicResource TextoSecundario}"
                            HorizontalAlignment="Center"/>
 
             </Border>

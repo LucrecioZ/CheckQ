@@ -5,9 +5,10 @@
         Icon="/CheckQ;component/Assets/CheckQ_icon_1024.png"
         Width="500"
         Height="500"
+        Foreground="{DynamicResource AzulEscuro}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#F5F7FB">
+        Background="{DynamicResource Fundo}">
 
     <!-- Estilo local BotaoPrincipal. O botão Criar processo abaixo usa outro estilo: BotaoPrimario. -->
     <Window.Resources>
@@ -57,11 +58,11 @@
             <TextBlock Text="Novo processo"
                        FontSize="26"
                        FontWeight="Bold"
-                       Foreground="#20232A"/>
+                       Foreground="{DynamicResource AzulEscuro}"/>
 
             <TextBlock Text="Preencha as informações abaixo para criar um novo processo."
                        FontSize="13"
-                       Foreground="#707784"
+                       Foreground="{DynamicResource TextoSecundario}"
                        Margin="0,5,0,0"/>
 
         </StackPanel>
@@ -74,7 +75,7 @@
 
             <TextBlock Text="Usuário responsável"
                        FontWeight="SemiBold"
-                       Foreground="#30343B"
+                       Foreground="{DynamicResource AzulEscuro}"
                        Margin="0,0,0,5"/>
 
             <TextBox x:Name="txtUsuario"
@@ -91,7 +92,7 @@
 
             <TextBlock Text="Sistema"
                        FontWeight="SemiBold"
-                       Foreground="#30343B"
+                       Foreground="{DynamicResource AzulEscuro}"
                        Margin="0,0,0,5"/>
 
             <ComboBox x:Name="cmbSistema"
@@ -110,7 +111,7 @@
 
             <TextBlock Text="Título do processo"
                        FontWeight="SemiBold"
-                       Foreground="#30343B"
+                       Foreground="{DynamicResource AzulEscuro}"
                        Margin="0,0,0,5"/>
 
             <TextBox x:Name="txtTitulo"
@@ -123,7 +124,7 @@
         <!-- Texto de ajuda sobre a escolha ou o cadastro de um sistema. -->
 
         <Border Grid.Row="4"
-                Background="#EAECF2"
+                Background="{DynamicResource Painel}"
                 CornerRadius="8"
                 Padding="15"
                 VerticalAlignment="Top">
@@ -131,7 +132,7 @@
             <TextBlock Text="Você pode selecionar um sistema existente ou digitar um sistema novo."
                        TextWrapping="Wrap"
                        FontSize="13"
-                       Foreground="#666D78"/>
+                       Foreground="{DynamicResource TextoSecundario}"/>
 
         </Border>
 

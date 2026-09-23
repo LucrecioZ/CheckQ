@@ -4,30 +4,10 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-
-        <!-- CORES -->
-
-        <SolidColorBrush x:Key="AzulPrincipal"
-                         Color="#087FC1"/>
-
-        <SolidColorBrush x:Key="AzulHover"
-                         Color="#056FA8"/>
-
-        <SolidColorBrush x:Key="Vermelho"
-                         Color="#D92B24"/>
-
-        <SolidColorBrush x:Key="AzulEscuro"
-                         Color="#193652"/>
-
-        <SolidColorBrush x:Key="Fundo"
-                         Color="#F4F7FA"/>
-
-        <SolidColorBrush x:Key="Borda"
-                         Color="#D9E2EA"/>
-
-        <SolidColorBrush x:Key="TextoSecundario"
-                         Color="#687789"/>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Claro.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
         <!-- BOTÃO BASE -->
 
@@ -50,13 +30,13 @@
                     Value="1"/>
 
             <Setter Property="Background"
-                    Value="White"/>
+                    Value="{DynamicResource Superficie}"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulEscuro}"/>
+                    Value="{DynamicResource AzulEscuro}"/>
 
             <Setter Property="BorderBrush"
-                    Value="{StaticResource Borda}"/>
+                    Value="{DynamicResource Borda}"/>
 
             <Setter Property="HorizontalContentAlignment"
                     Value="Center"/>
@@ -130,7 +110,7 @@
                BasedOn="{StaticResource BotaoBase}">
 
             <Setter Property="Background"
-                    Value="{StaticResource AzulPrincipal}"/>
+                    Value="{DynamicResource AzulPrincipal}"/>
 
             <Setter Property="Foreground"
                     Value="White"/>
@@ -148,10 +128,10 @@
                BasedOn="{StaticResource BotaoBase}">
 
             <Setter Property="Background"
-                    Value="White"/>
+                    Value="{DynamicResource Superficie}"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulEscuro}"/>
+                    Value="{DynamicResource AzulEscuro}"/>
 
         </Style>
 
@@ -163,13 +143,13 @@
                BasedOn="{StaticResource BotaoBase}">
 
             <Setter Property="Background"
-                    Value="White"/>
+                    Value="{DynamicResource Superficie}"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource Vermelho}"/>
+                    Value="{DynamicResource Vermelho}"/>
 
             <Setter Property="BorderBrush"
-                    Value="#EBC8C5"/>
+                    Value="{DynamicResource BordaPerigo}"/>
 
         </Style>
 
@@ -201,18 +181,20 @@
         <!-- TEXTBOX -->
 
         <Style TargetType="TextBox">
+            <Setter Property="CaretBrush" Value="{DynamicResource AzulEscuro}"/>
+            <Setter Property="SelectionBrush" Value="{DynamicResource Selecao}"/>
 
             <Setter Property="FontSize"
                     Value="14"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulEscuro}"/>
+                    Value="{DynamicResource AzulEscuro}"/>
 
             <Setter Property="Background"
-                    Value="White"/>
+                    Value="{DynamicResource Superficie}"/>
 
             <Setter Property="BorderBrush"
-                    Value="{StaticResource Borda}"/>
+                    Value="{DynamicResource Borda}"/>
 
             <Setter Property="BorderThickness"
                     Value="1"/>
@@ -227,22 +209,111 @@
 
         <Style TargetType="ComboBox">
 
+            <!-- O campo e a lista seguem o tema, inclusive enquanto a pessoa digita um sistema novo. -->
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1" CornerRadius="3"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="30"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter x:Name="selecionado" Margin="{TemplateBinding Padding}"
+                                                  VerticalAlignment="Center" IsHitTestVisible="False"
+                                                  Content="{TemplateBinding SelectionBoxItem}"/>
+                                <TextBox x:Name="PART_EditableTextBox" Visibility="Collapsed"
+                                         Background="{TemplateBinding Background}"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"
+                                         BorderThickness="0" Padding="{TemplateBinding Padding}"
+                                         VerticalContentAlignment="Center">
+                                    <TextBox.Template>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                                <ScrollViewer x:Name="PART_ContentHost"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </TextBox.Template>
+                                </TextBox>
+                                <ToggleButton Grid.Column="1" Focusable="False"
+                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Border Background="{DynamicResource Painel}" CornerRadius="0,3,3,0">
+                                                <Path Data="M 0 0 L 5 5 L 10 0" StrokeThickness="2"
+                                                      Stroke="{DynamicResource AzulEscuro}"
+                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+                            </Grid>
+                            <Popup x:Name="PART_Popup" Placement="Bottom" AllowsTransparency="True"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
+                                <Border Background="{DynamicResource Superficie}"
+                                        BorderBrush="{DynamicResource Borda}" BorderThickness="1"
+                                        MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEditable" Value="True">
+                                <Setter TargetName="selecionado" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
             <Setter Property="FontSize"
                     Value="14"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulEscuro}"/>
+                    Value="{DynamicResource AzulEscuro}"/>
 
             <Setter Property="Background"
-                    Value="White"/>
+                    Value="{DynamicResource Superficie}"/>
 
             <Setter Property="BorderBrush"
-                    Value="{StaticResource Borda}"/>
+                    Value="{DynamicResource Borda}"/>
 
         </Style>
 
 
         <!-- CHECKBOX -->
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="{DynamicResource AzulEscuro}"/>
+            <Setter Property="Background" Value="{DynamicResource Superficie}"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsHighlighted" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Selecao}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Selecao}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style TargetType="CheckBox">
 
@@ -250,7 +321,7 @@
                     Value="15"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulEscuro}"/>
+                    Value="{DynamicResource AzulEscuro}"/>
 
         </Style>
 
@@ -260,13 +331,14 @@
         <Style TargetType="ProgressBar">
 
             <Setter Property="Background"
-                    Value="#DCE7EE"/>
+                    Value="{DynamicResource TrilhaProgresso}"/>
 
             <Setter Property="Foreground"
-                    Value="{StaticResource AzulPrincipal}"/>
+                    Value="{DynamicResource AzulPrincipal}"/>
 
         </Style>
 
+            </ResourceDictionary>
     </Application.Resources>
 
 </Application>

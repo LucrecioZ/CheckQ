@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using ChecklistInstaller.Models;
 using ChecklistInstaller.Services;
@@ -51,13 +52,9 @@ namespace ChecklistInstaller
             Border card =
                 new Border();
 
-            card.Background =
-                Brushes.White;
+            card.SetResourceReference(Border.BackgroundProperty, "Superficie");
 
-            card.BorderBrush =
-                new SolidColorBrush(
-                    Color.FromRgb(217, 226, 234)
-                );
+            card.SetResourceReference(Border.BorderBrushProperty, "Borda");
 
             card.BorderThickness =
                 new Thickness(1);
@@ -116,10 +113,7 @@ namespace ChecklistInstaller
             checkBox.FontSize =
                 15;
 
-            checkBox.Foreground =
-                new SolidColorBrush(
-                    Color.FromRgb(25, 54, 82)
-                );
+            checkBox.SetResourceReference(CheckBox.ForegroundProperty, "AzulEscuro");
 
             checkBox.VerticalAlignment =
                 VerticalAlignment.Center;
@@ -162,18 +156,11 @@ namespace ChecklistInstaller
             botaoEditar.Tag =
                 etapa;
 
-            botaoEditar.Background =
-                Brushes.White;
+            botaoEditar.SetResourceReference(Control.BackgroundProperty, "Superficie");
 
-            botaoEditar.Foreground =
-                new SolidColorBrush(
-                    Color.FromRgb(25, 54, 82)
-                );
+            botaoEditar.SetResourceReference(Control.ForegroundProperty, "AzulEscuro");
 
-            botaoEditar.BorderBrush =
-                new SolidColorBrush(
-                    Color.FromRgb(217, 226, 234)
-                );
+            botaoEditar.SetResourceReference(Control.BorderBrushProperty, "Borda");
 
             botaoEditar.BorderThickness =
                 new Thickness(1);
@@ -210,18 +197,11 @@ namespace ChecklistInstaller
             botaoExcluir.Tag =
                 etapa;
 
-            botaoExcluir.Background =
-                Brushes.White;
+            botaoExcluir.SetResourceReference(Control.BackgroundProperty, "Superficie");
 
-            botaoExcluir.Foreground =
-                new SolidColorBrush(
-                    Color.FromRgb(217, 43, 36)
-                );
+            botaoExcluir.SetResourceReference(Control.ForegroundProperty, "Vermelho");
 
-            botaoExcluir.BorderBrush =
-                new SolidColorBrush(
-                    Color.FromRgb(235, 200, 197)
-                );
+            botaoExcluir.SetResourceReference(Control.BorderBrushProperty, "BordaPerigo");
 
             botaoExcluir.BorderThickness =
                 new Thickness(1);
@@ -245,6 +225,19 @@ namespace ChecklistInstaller
             painelEtapas.Children.Add(
                 card
             );
+        }
+
+        // Enter no campo da nova etapa faz o mesmo que clicar em Adicionar.
+        private void TxtNovaEtapa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            e.Handled = true;
+
+            // Segurar Enter não deve tentar adicionar a mesma etapa várias vezes.
+            if (!e.IsRepeat)
+                BtnAdicionarEtapa_Click(sender, e);
         }
 
         // Botão Adicionar: exige uma descrição, cria uma etapa pendente e salva o processo.
@@ -285,6 +278,7 @@ namespace ChecklistInstaller
             AtualizarProgresso();
 
             SalvarProcesso();
+            txtNovaEtapa.Focus();
         }
 
         // Ao marcar ou desmarcar uma etapa, atualiza o progresso e salva a mudança na hora.

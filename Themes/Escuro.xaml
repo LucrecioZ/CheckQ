@@ -1,0 +1,17 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Para ajustar as cores deste modo. Os nomes são iguais nos dois temas. -->
+    <SolidColorBrush x:Key="AzulPrincipal" Color="#087FC1"/>
+    <SolidColorBrush x:Key="AzulHover" Color="#056FA8"/>
+    <SolidColorBrush x:Key="Vermelho" Color="#FF8A84"/>
+    <SolidColorBrush x:Key="AzulEscuro" Color="#E6EDF5"/>
+    <SolidColorBrush x:Key="Fundo" Color="#111923"/>
+    <SolidColorBrush x:Key="Superficie" Color="#1D2938"/>
+    <SolidColorBrush x:Key="Painel" Color="#162231"/>
+    <SolidColorBrush x:Key="Borda" Color="#45566B"/>
+    <SolidColorBrush x:Key="BordaPerigo" Color="#9E5B5C"/>
+    <SolidColorBrush x:Key="TextoSecundario" Color="#B5C3D3"/>
+    <SolidColorBrush x:Key="DestaqueTexto" Color="#72C7FF"/>
+    <SolidColorBrush x:Key="TrilhaProgresso" Color="#34465B"/>
+    <SolidColorBrush x:Key="Selecao" Color="#304F6B"/>
+</ResourceDictionary>

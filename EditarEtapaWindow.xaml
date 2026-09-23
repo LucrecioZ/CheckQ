@@ -5,9 +5,10 @@
         Icon="/CheckQ;component/Assets/CheckQ_icon_1024.png"
         Width="450"
         Height="250"
+        Foreground="{DynamicResource AzulEscuro}"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        Background="#F5F7FB">
+        Background="{DynamicResource Fundo}">
 
     <Grid Margin="25">
 
