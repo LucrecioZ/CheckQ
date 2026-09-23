@@ -59,8 +59,8 @@ A lista de SDKs deve incluir uma versão `10.0.x`.
 ### 2. Baixe o projeto
 
 ```powershell
-git clone https://github.com/LucrecioZ/CheckQ-.git
-cd CheckQ-
+git clone https://github.com/LucrecioZ/CheckQ.git
+cd CheckQ
 ```
 
 ### 3. Abra o aplicativo
