@@ -1,0 +1,111 @@
+<Window x:Class="ChecklistInstaller.EditarProcessoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CheckQ - Editar processo"
+        Icon="/CheckQ;component/Assets/CheckQ_icon_1024.png"
+        Width="500"
+        Height="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F5F7FB">
+
+    <Grid Margin="30">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Margin="0,0,0,25">
+
+            <TextBlock Text="Editar processo"
+                       FontSize="26"
+                       FontWeight="Bold"
+                       Foreground="#20232A"/>
+
+            <TextBlock Text="Altere as informações do processo"
+                       FontSize="13"
+                       Foreground="#707784"
+                       Margin="0,5,0,0"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="0,0,0,15">
+
+            <TextBlock Text="Usuário responsável"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <TextBox x:Name="txtUsuario"
+                     Height="35"
+                     Padding="8"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,0,0,15">
+
+            <TextBlock Text="Sistema"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <ComboBox x:Name="cmbSistema"
+                      Height="35"
+                      IsEditable="True"
+                      IsTextSearchEnabled="True"
+                      Padding="8"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="3"
+                    Margin="0,0,0,15">
+
+            <TextBlock Text="Título do processo"
+                       FontWeight="SemiBold"
+                       Margin="0,0,0,5"/>
+
+            <TextBox x:Name="txtTitulo"
+                     Height="35"
+                     Padding="8"/>
+
+        </StackPanel>
+
+        <Border Grid.Row="4"
+                Background="#EAECF2"
+                CornerRadius="8"
+                Padding="15"
+                VerticalAlignment="Top">
+
+            <TextBlock Text="A alteração não apaga as etapas ou o progresso deste processo."
+                       TextWrapping="Wrap"
+                       FontSize="13"
+                       Foreground="#666D78"/>
+
+        </Border>
+
+        <StackPanel Grid.Row="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <Button Content="Cancelar"
+                    Width="100"
+                    Height="38"
+                    Margin="0,0,10,0"
+                    Click="BtnCancelar_Click"/>
+
+            <Button Content="Salvar alterações"
+                    Width="145"
+                    Height="38"
+                    Click="BtnSalvar_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

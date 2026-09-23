@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+
+        <UseWPF>true</UseWPF>
+
+        <Nullable>enable</Nullable>
+
+        <ImplicitUsings>enable</ImplicitUsings>
+
+        <AssemblyName>CheckQ</AssemblyName>
+
+        <RootNamespace>CheckQ</RootNamespace>
+
+        <ApplicationIcon>Assets\CheckQ.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Resource Include="Assets\CheckQ.ico" />
+        <Resource Include="Assets\CheckQ_icon_1024.png" />
+        <Resource Include="Assets\checklist_logo_transparente.png" />
+    </ItemGroup>
+
+</Project>

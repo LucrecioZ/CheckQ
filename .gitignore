@@ -1,0 +1,28 @@
+# Build output
+[Bb]in/
+[Oo]bj/
+artifacts/
+publish/
+
+# Local IDE settings
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local credentials and environment files
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+
+# Local application data and logs
+/Data/
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store

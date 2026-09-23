@@ -1,0 +1,158 @@
+<Window x:Class="ChecklistInstaller.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CheckQ"
+        Icon="/CheckQ;component/Assets/CheckQ_icon_1024.png"
+        Width="900"
+        Height="700"
+        MinWidth="750"
+        MinHeight="550"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource Fundo}">
+        
+
+    <Grid Margin="35">
+
+        <!-- MARCA D'AGUA DA QUINZE -->
+
+        <Image Source="/CheckQ;component/Assets/checklist_logo_transparente.png"
+                Width="460"
+                Height="460"
+                Opacity="0.06"
+                Stretch="Uniform"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,50,40,0"
+                IsHitTestVisible="False"/>
+
+        <!-- CONTEÚDO DA JANELA PRINCIPAL -->
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="Auto"/>
+
+                <RowDefinition Height="*"/>
+
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+
+            <!-- CABEÇALHO -->
+
+            <StackPanel Grid.Row="0"
+                        Margin="0,0,0,30">
+
+                <TextBlock FontFamily="Segoe UI"
+                        FontSize="32"
+                        FontWeight="Bold">
+                    <Run Text="CHECK" Foreground="#1E3A56"/><Run Text="Q" Foreground="#0077C8"/>
+                </TextBlock>
+                
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,8,0,0">
+
+                    <Border Width="38"
+                            Height="4"
+                            Background="{StaticResource AzulPrincipal}"
+                            CornerRadius="2"
+                            Margin="0,0,5,0"/>
+
+                    <Border Width="22"
+                            Height="4"
+                            Background="{StaticResource Vermelho}"
+                            CornerRadius="2"/>
+
+                </StackPanel>
+
+
+                <TextBlock Text="Gerencie seus processos de forma simples e rápida."
+                           FontSize="15"
+                           Foreground="{StaticResource TextoSecundario}"
+                           Margin="0,10,0,0"/>
+
+            </StackPanel>
+           
+            <!-- BARRA SUPERIOR -->
+           
+            <Grid Grid.Row="1"
+                  Margin="0,0,0,18">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*"/>
+
+                    <ColumnDefinition Width="Auto"/>
+
+                </Grid.ColumnDefinitions>
+
+
+                <StackPanel Grid.Column="0">
+
+                    <TextBlock Text="Seus processos"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource AzulEscuro}"/>
+
+                    <TextBlock x:Name="txtQuantidadeProcessos"
+                               Text="0 processos"
+                               FontSize="13"
+                               Foreground="{StaticResource TextoSecundario}"
+                               Margin="0,4,0,0"/>
+
+                </StackPanel>
+
+
+                <Button Grid.Column="1"
+                        x:Name="btnNovoProcesso"
+                        Content="+  Novo processo"
+                        Width="155"
+                        Height="42"
+                        Style="{StaticResource BotaoPrimario}"
+                        Click="BtnNovoProcesso_Click"/>
+
+            </Grid>
+
+            <!-- LISTA -->
+           
+            <Border Grid.Row="2"
+                    Background="#25FFFFFF"
+                    BorderBrush="#30FFFFFF"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="12">
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+
+                    <StackPanel x:Name="painelProcessos"/>
+
+                </ScrollViewer>
+
+            </Border>
+
+            <!-- RODAPÉ -->
+
+            <Border Grid.Row="3"
+                    Background="White"
+                    BorderBrush="{StaticResource Borda}"
+                    BorderThickness="1"
+                    CornerRadius="9"
+                    Padding="12"
+                    Margin="0,16,0,0">
+
+                <TextBlock Text="Selecione um processo para continuar."
+                           FontSize="13"
+                           Foreground="{StaticResource TextoSecundario}"
+                           HorizontalAlignment="Center"/>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</Window>
