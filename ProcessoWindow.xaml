@@ -128,20 +128,55 @@
 
 
             <!-- Visual do progresso. A contagem e o preenchimento da barra ficam em AtualizarProgresso. -->
-            <StackPanel Grid.Row="3">
+            <!-- Progresso e botão para desmarcar todas as etapas -->
+            <Grid Grid.Row="3">
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+
+                <!-- TEXTO DO PROGRESSO -->
                 <TextBlock x:Name="txtProgresso"
-                           Text="Progresso: 0 / 0"
-                           FontWeight="SemiBold"
-                           Foreground="{DynamicResource AzulEscuro}"
-                           Margin="0,0,0,6"/>
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="Progresso: 0 / 0"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource AzulEscuro}"
+                        Margin="0,0,0,6"/>
 
+
+                <!-- BOTÃO DESMARCAR TODAS -->
+                <Button Grid.Row="0"
+                        Grid.Column="1"
+                        Content="Desmarcar todas"
+                        Height="32"
+                        Padding="12,0"
+                        Margin="10,0,0,6"
+                        Background="{DynamicResource Superficie}"
+                        Foreground="{DynamicResource AzulEscuro}"
+                        BorderBrush="{DynamicResource Borda}"
+                        BorderThickness="1"
+                        FontWeight="SemiBold"
+                        Click="BtnDesmarcarTodas_Click"/>
+
+
+                <!-- BARRA DE PROGRESSO -->
                 <ProgressBar x:Name="barraProgresso"
-                             Height="18"
-                             Minimum="0"
-                             Maximum="100"/>
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Height="18"
+                            Minimum="0"
+                            Maximum="100"/>
 
-            </StackPanel>
+            </Grid>
 
         </Grid>
 

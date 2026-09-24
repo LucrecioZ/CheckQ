@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,6 +15,10 @@ namespace ChecklistInstaller
     {
         private readonly JsonService jsonService;
 
+        private List<Processo> processosAtuais = new List<Processo>();
+
+        private bool atualizandoFiltro = false;
+
         // Ao iniciar, prepara a tela e busca os processos já salvos no computador.
         public MainWindow()
         {
@@ -27,23 +32,149 @@ namespace ChecklistInstaller
         }
 
         // Recarrega a lista e a quantidade de processos, substituindo os cartões antigos.
+        // Carrega todos os processos salvos e atualiza a lista de sistemas disponíveis.
         private void CarregarProcessos()
         {
-            painelProcessos.Children.Clear();
-
-            List<Processo> processos =
+            processosAtuais =
                 jsonService.ListarProcessos();
 
-            txtQuantidadeProcessos.Text =
-                processos.Count == 1
-                    ? "1 processo"
-                    : $"{processos.Count} processos";
+            AtualizarFiltroSistemas();
 
-            foreach (Processo processo in processos)
+            AplicarFiltros();
+        }
+
+        // Preenche o ComboBox com os sistemas encontrados nos processos salvos.
+        private void AtualizarFiltroSistemas()
+        {
+            atualizandoFiltro = true;
+
+            string? sistemaSelecionado = cmbFiltroSistema.SelectedItem as string;
+
+            cmbFiltroSistema.Items.Clear();
+
+            cmbFiltroSistema.Items.Add("Todos os sistemas");
+
+            List<string> sistemas =
+                processosAtuais
+                    .Select(p => p.Sistema)
+                    .Where(s => !string.IsNullOrWhiteSpace(s))
+                    .Distinct()
+                    .OrderBy(s => s)
+                    .ToList();
+
+            foreach (string sistema in sistemas)
+            {
+                cmbFiltroSistema.Items.Add(sistema);
+            }
+
+            // Tenta manter o filtro que estava selecionado.
+            if (!string.IsNullOrWhiteSpace(sistemaSelecionado) &&
+                cmbFiltroSistema.Items.Contains(sistemaSelecionado))
+            {
+                cmbFiltroSistema.SelectedItem =
+                    sistemaSelecionado;
+            }
+            else
+            {
+                cmbFiltroSistema.SelectedIndex = 0;
+            }
+
+            atualizandoFiltro = false;
+        }
+
+        // Aplica simultaneamente a pesquisa pelo nome do processo
+// e o filtro pelo sistema selecionado.
+        private void AplicarFiltros()
+        {
+            string pesquisa =
+                txtPesquisaProcesso.Text.Trim();
+
+            string? sistemaSelecionado = cmbFiltroSistema.SelectedItem as string;
+
+            IEnumerable<Processo> processosFiltrados =
+                processosAtuais;
+
+            // Pesquisa pelo título/nome do processo.
+            if (!string.IsNullOrWhiteSpace(pesquisa))
+            {
+                processosFiltrados =
+                    processosFiltrados.Where(p =>
+                        p.Titulo.Contains(
+                            pesquisa,
+                            StringComparison.OrdinalIgnoreCase
+                        ));
+            }
+
+            // Filtra pelo sistema selecionado.
+            if (!string.IsNullOrWhiteSpace(sistemaSelecionado) &&
+                sistemaSelecionado != "Todos os sistemas")
+            {
+                processosFiltrados =
+                    processosFiltrados.Where(p =>
+                        string.Equals(
+                            p.Sistema,
+                            sistemaSelecionado,
+                            StringComparison.OrdinalIgnoreCase
+                        ));
+            }
+
+            List<Processo> resultado =
+                processosFiltrados.ToList();
+
+            painelProcessos.Children.Clear();
+
+            foreach (Processo processo in resultado)
             {
                 CriarCardProcesso(processo);
             }
+
+            AtualizarQuantidadeProcessos(resultado.Count);
         }
+
+        private void AtualizarQuantidadeProcessos(int quantidade)
+{
+            bool existePesquisa =
+                !string.IsNullOrWhiteSpace(txtPesquisaProcesso.Text);
+
+            bool existeFiltro =
+                cmbFiltroSistema.SelectedItem is string sistema &&
+                sistema != "Todos os sistemas";
+
+            if (existePesquisa || existeFiltro)
+            {
+                txtQuantidadeProcessos.Text =
+                    quantidade == 1
+                        ? "1 processo encontrado"
+                        : $"{quantidade} processos encontrados";
+            }
+            else
+            {
+                txtQuantidadeProcessos.Text =
+                    quantidade == 1
+                        ? "1 processo"
+                        : $"{quantidade} processos";
+            }
+        }
+
+        // Executa a pesquisa enquanto o usuário digita.
+        private void TxtPesquisaProcesso_TextChanged(
+            object sender,
+            TextChangedEventArgs e)
+        {
+            AplicarFiltros();
+        }
+
+        // Executa o filtro quando o usuário escolhe um sistema.
+        private void CmbFiltroSistema_SelectionChanged(
+            object sender,
+            SelectionChangedEventArgs e)
+        {
+            if (!atualizandoFiltro)
+            {
+                AplicarFiltros();
+            }
+        }
+
 
         // O botão mostra o modo para o qual podemos mudar com o próximo clique.
         private void AtualizarBotaoTema()

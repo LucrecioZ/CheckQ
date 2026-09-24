@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -400,6 +401,54 @@ namespace ChecklistInstaller
                 // Sem etapas, a barra fica vazia e não há divisão por zero.
                 barraProgresso.Value = 0;
             }
+        }
+
+        // Desmarca todas as etapas concluídas do processo.
+// Nenhuma etapa é apagada; apenas o estado Concluida volta para false.
+        private void BtnDesmarcarTodas_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            // Verifica se existe alguma etapa marcada.
+            bool existeEtapaConcluida =
+                processo.Etapas.Any(etapa => etapa.Concluida);
+
+            if (!existeEtapaConcluida)
+            {
+                MessageBox.Show(
+                    "Não há nenhuma etapa marcada como concluída.",
+                    "Desmarcar todas",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+
+                return;
+            }
+
+            // Confirma antes de alterar todas as etapas.
+            MessageBoxResult resposta =
+                MessageBox.Show(
+                    "Deseja realmente desmarcar todas as etapas concluídas?",
+                    "Desmarcar todas",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+            if (resposta != MessageBoxResult.Yes)
+                return;
+
+            // Desmarca todas as etapas.
+            foreach (Etapa etapa in processo.Etapas)
+            {
+                etapa.Concluida = false;
+            }
+
+            // Recria os cartões para atualizar visualmente as caixinhas.
+            CarregarEtapasNaTela();
+
+            // Atualiza o contador e a barra de progresso.
+            AtualizarProgresso();
+
+            // Salva a alteração no arquivo JSON.
+            SalvarProcesso();
         }
 
         // Salva o processo inteiro, incluindo as etapas. A pasta e o arquivo são definidos em Services/JsonService.cs.

@@ -10,39 +10,33 @@
         Foreground="{DynamicResource AzulEscuro}"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource Fundo}">
-        
 
     <Grid Margin="35">
 
-        <!-- MARCA D'AGUA DA QUINZE -->
-
+        <!-- MARCA D'ÁGUA DA QUINZE -->
         <Image Source="/CheckQ;component/Assets/checklist_logo_transparente.png"
-                Width="460"
-                Height="460"
-                Opacity="0.06"
-                Stretch="Uniform"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Margin="0,50,40,0"
-                IsHitTestVisible="False"/>
+               Width="460"
+               Height="460"
+               Opacity="0.06"
+               Stretch="Uniform"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Margin="0,50,40,0"
+               IsHitTestVisible="False"/>
 
-        <!-- CONTEÚDO DA JANELA PRINCIPAL -->
 
+        <!-- CONTEÚDO PRINCIPAL -->
         <Grid>
 
             <Grid.RowDefinitions>
-
                 <RowDefinition Height="Auto"/>
-
                 <RowDefinition Height="Auto"/>
-
                 <RowDefinition Height="*"/>
-
                 <RowDefinition Height="Auto"/>
-
             </Grid.RowDefinitions>
 
-            <!-- Troca o modo de todas as telas e guarda a escolha para a próxima abertura. -->
+
+            <!-- BOTÃO DE TEMA -->
             <Button x:Name="btnAlternarTema"
                     Grid.Row="0"
                     HorizontalAlignment="Right"
@@ -52,8 +46,8 @@
                     Padding="14,9"
                     Click="BtnAlternarTema_Click"/>
 
-            <!-- CABEÇALHO -->
 
+            <!-- CABEÇALHO DO CHECKQ -->
             <StackPanel Grid.Row="0"
                         Margin="0,0,0,30">
 
@@ -63,72 +57,116 @@
                     <Run Text="CHECK" Foreground="{DynamicResource AzulEscuro}"/><Run Text="Q" Foreground="{DynamicResource DestaqueTexto}"/>
                 </TextBlock>
                 
+
+
+                <!-- DETALHE COLORIDO -->
                 <StackPanel Orientation="Horizontal"
                             Margin="0,8,0,0">
 
-                    <Border Width="38"
-                            Height="4"
+                    <Border Width="50"
+                            Height="8"
                             Background="{DynamicResource AzulPrincipal}"
                             CornerRadius="2"
                             Margin="0,0,5,0"/>
 
-                    <Border Width="22"
-                            Height="4"
+                    <Border Width="30"
+                            Height="8"
                             Background="{DynamicResource Vermelho}"
                             CornerRadius="2"/>
 
                 </StackPanel>
 
 
+                <!-- FRASE -->
                 <TextBlock Text="Gerencie seus processos de forma simples e rápida."
                            FontSize="22"
                            Foreground="{DynamicResource TextoSecundario}"
                            Margin="0,10,0,0"/>
 
             </StackPanel>
-           
-            <!-- Quantidade de processos e botão de cadastro. A abertura do cadastro fica em BtnNovoProcesso_Click. -->
-           
+
+
+            <!-- PROCESSOS + PESQUISA + FILTRO -->
             <Grid Grid.Row="1"
                   Margin="0,0,0,18">
 
-                <Grid.ColumnDefinitions>
-
-                    <ColumnDefinition Width="*"/>
-
-                    <ColumnDefinition Width="Auto"/>
-
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
 
-                <StackPanel Grid.Column="0">
+                <!-- TÍTULO E NOVO PROCESSO -->
+                <Grid Grid.Row="0">
 
-                    <TextBlock Text="Seus processos"
-                               FontSize="30"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource AzulEscuro}"/>
-
-                    <TextBlock x:Name="txtQuantidadeProcessos"
-                               Text="0 processos"
-                               FontSize="20"
-                               Foreground="{DynamicResource TextoSecundario}"
-                               Margin="0,4,0,0"/>
-
-                </StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
 
-                <Button Grid.Column="1"
-                        x:Name="btnNovoProcesso"
-                        Content="+  Novo processo"
-                        Width="155"
-                        Height="42"
-                        Style="{StaticResource BotaoPrimario}"
-                        Click="BtnNovoProcesso_Click"/>
+                    <StackPanel Grid.Column="0">
+
+                        <TextBlock Text="Seus processos"
+                                   FontSize="30"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource AzulEscuro}"/>
+
+                        <TextBlock x:Name="txtQuantidadeProcessos"
+                                   Text="0 processos"
+                                   FontSize="20"
+                                   Foreground="{DynamicResource TextoSecundario}"
+                                   Margin="0,4,0,0"/>
+
+                    </StackPanel>
+
+
+                    <Button Grid.Column="1"
+                            x:Name="btnNovoProcesso"
+                            Content="+  Novo processo"
+                            Width="155"
+                            Height="42"
+                            Style="{StaticResource BotaoPrimario}"
+                            Click="BtnNovoProcesso_Click"/>
+
+                </Grid>
+
+
+                <!-- PESQUISA E FILTRO -->
+                <Grid Grid.Row="1"
+                      Margin="0,18,0,0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <!-- PESQUISA POR NOME -->
+                    <TextBox x:Name="txtPesquisaProcesso"
+                             Grid.Column="0"
+                             Height="38"
+                             Padding="10,7"
+                             VerticalContentAlignment="Center"
+                             ToolTip="Pesquisar processo..."
+                             TextChanged="TxtPesquisaProcesso_TextChanged"/>
+
+
+                    <!-- FILTRO POR SISTEMA -->
+                    <ComboBox x:Name="cmbFiltroSistema"
+                              Grid.Column="1"
+                              Height="38"
+                              Margin="12,0,0,0"
+                              IsTextSearchEnabled="True"
+                              VerticalContentAlignment="Center"
+                              SelectionChanged="CmbFiltroSistema_SelectionChanged"/>
+
+                </Grid>
 
             </Grid>
 
-            <!-- Área dos processos. Para mudar cada cartão, veja CriarCardProcesso em MainWindow.xaml.cs. -->
-           
+
+            <!-- ÁREA DOS PROCESSOS -->
             <Border Grid.Row="2"
                     Background="{DynamicResource Painel}"
                     BorderBrush="{DynamicResource Borda}"
@@ -145,8 +183,8 @@
 
             </Border>
 
-            <!-- RODAPÉ -->
 
+            <!-- RODAPÉ -->
             <Border Grid.Row="3"
                     Background="{DynamicResource Superficie}"
                     BorderBrush="{DynamicResource Borda}"

@@ -96,10 +96,9 @@
                        Margin="0,0,0,5"/>
 
             <ComboBox x:Name="cmbSistema"
-                      Height="35"
-                      IsEditable="True"
-                      IsTextSearchEnabled="True"
-                      Padding="8"/>
+                Height="35"
+                IsEditable="True"
+                IsTextSearchEnabled="True"/>
 
         </StackPanel>
 

@@ -56,7 +56,6 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="9">
 
-                            <!-- AQUI ESTAVA O PROBLEMA -->
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -207,87 +206,186 @@
 
         <!-- COMBOBOX -->
 
-        <Style TargetType="ComboBox">
+        <!-- COMBOBOX -->
+<Style TargetType="ComboBox">
 
-            <!-- O campo e a lista seguem o tema, inclusive enquanto a pessoa digita um sistema novo. -->
-            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="1" CornerRadius="3"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="30"/>
-                                </Grid.ColumnDefinitions>
-                                <ContentPresenter x:Name="selecionado" Margin="{TemplateBinding Padding}"
-                                                  VerticalAlignment="Center" IsHitTestVisible="False"
-                                                  Content="{TemplateBinding SelectionBoxItem}"/>
-                                <TextBox x:Name="PART_EditableTextBox" Visibility="Collapsed"
-                                         Background="{TemplateBinding Background}"
-                                         Foreground="{TemplateBinding Foreground}"
-                                         IsReadOnly="{TemplateBinding IsReadOnly}"
-                                         BorderThickness="0" Padding="{TemplateBinding Padding}"
-                                         VerticalContentAlignment="Center">
-                                    <TextBox.Template>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
-                                                <ScrollViewer x:Name="PART_ContentHost"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </TextBox.Template>
-                                </TextBox>
-                                <ToggleButton Grid.Column="1" Focusable="False"
-                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}">
-                                    <ToggleButton.Template>
-                                        <ControlTemplate TargetType="ToggleButton">
-                                            <Border Background="{DynamicResource Painel}" CornerRadius="0,3,3,0">
-                                                <Path Data="M 0 0 L 5 5 L 10 0" StrokeThickness="2"
-                                                      Stroke="{DynamicResource AzulEscuro}"
-                                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </ToggleButton.Template>
-                                </ToggleButton>
-                            </Grid>
-                            <Popup x:Name="PART_Popup" Placement="Bottom" AllowsTransparency="True"
-                                   IsOpen="{TemplateBinding IsDropDownOpen}" Focusable="False">
-                                <Border Background="{DynamicResource Superficie}"
-                                        BorderBrush="{DynamicResource Borda}" BorderThickness="1"
-                                        MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource TemplatedParent}}"
-                                        MaxHeight="{TemplateBinding MaxDropDownHeight}">
-                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                        <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEditable" Value="True">
-                                <Setter TargetName="selecionado" Property="Visibility" Value="Collapsed"/>
-                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+    <Setter Property="ScrollViewer.CanContentScroll"
+            Value="True"/>
 
-            <Setter Property="FontSize"
-                    Value="14"/>
+    <Setter Property="FontSize"
+            Value="14"/>
 
-            <Setter Property="Foreground"
-                    Value="{DynamicResource AzulEscuro}"/>
+    <Setter Property="Foreground"
+            Value="{DynamicResource AzulEscuro}"/>
 
-            <Setter Property="Background"
-                    Value="{DynamicResource Superficie}"/>
+    <Setter Property="Background"
+            Value="{DynamicResource Superficie}"/>
 
-            <Setter Property="BorderBrush"
-                    Value="{DynamicResource Borda}"/>
+    <Setter Property="BorderBrush"
+            Value="{DynamicResource Borda}"/>
 
-        </Style>
+    <Setter Property="BorderThickness"
+            Value="1"/>
+
+    <Setter Property="Padding"
+            Value="10,0"/>
+
+    <Setter Property="VerticalContentAlignment"
+            Value="Center"/>
+
+
+    <Setter Property="Template">
+
+        <Setter.Value>
+
+            <ControlTemplate TargetType="ComboBox">
+
+                <Grid>
+
+                    <!-- FUNDO DO CAMPO -->
+                    <Border Background="{DynamicResource Superficie}"
+                            BorderBrush="{DynamicResource Borda}"
+                            BorderThickness="1"
+                            CornerRadius="3"/>
+
+
+                    <Grid>
+
+                        <Grid.ColumnDefinitions>
+
+                            <ColumnDefinition Width="*"/>
+
+                            <ColumnDefinition Width="30"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <!-- TEXTO NORMALMENTE SELECIONADO -->
+
+                        <ContentPresenter x:Name="selecionado"
+                                          Margin="10,0"
+                                          VerticalAlignment="Center"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          TextElement.Foreground="{DynamicResource AzulEscuro}"/>
+
+
+                        <!-- CAMPO PARA DIGITAR -->
+
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Grid.Column="0"
+                                 Visibility="Collapsed"
+                                 Background="{DynamicResource Superficie}"
+                                 Foreground="{DynamicResource AzulEscuro}"
+                                 BorderThickness="0"
+                                 Padding="10,0"
+                                 VerticalContentAlignment="Center"
+                                 CaretBrush="{DynamicResource AzulEscuro}"
+                                 SelectionBrush="{DynamicResource Selecao}">
+
+                            <TextBox.Template>
+
+                                <ControlTemplate TargetType="TextBox">
+
+                                    <Border Background="{DynamicResource Superficie}">
+
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+
+                                    </Border>
+
+                                </ControlTemplate>
+
+                            </TextBox.Template>
+
+                        </TextBox>
+
+
+                        <!-- BOTÃO DA LISTA -->
+
+                        <ToggleButton Grid.Column="1"
+                                      Focusable="False"
+                                      IsChecked="{Binding IsDropDownOpen,
+                                          RelativeSource={RelativeSource TemplatedParent},
+                                          Mode=TwoWay}">
+
+                            <ToggleButton.Template>
+
+                                <ControlTemplate TargetType="ToggleButton">
+
+                                    <Border Background="{DynamicResource Superficie}"
+                                            CornerRadius="0,3,3,0">
+
+                                        <Path Data="M 0 0 L 5 5 L 10 0"
+                                              StrokeThickness="2"
+                                              Stroke="{DynamicResource AzulEscuro}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                                    </Border>
+
+                                </ControlTemplate>
+
+                            </ToggleButton.Template>
+
+                        </ToggleButton>
+
+                    </Grid>
+
+
+                    <!-- LISTA DE SISTEMAS -->
+
+                    <Popup x:Name="PART_Popup"
+                           Placement="Bottom"
+                           AllowsTransparency="True"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           Focusable="False">
+
+                        <Border Background="{DynamicResource Superficie}"
+                                BorderBrush="{DynamicResource Borda}"
+                                BorderThickness="1"
+                                MinWidth="{Binding ActualWidth,
+                                    RelativeSource={RelativeSource TemplatedParent}}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
+
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+                                <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Contained"/>
+
+                            </ScrollViewer>
+
+                        </Border>
+
+                    </Popup>
+
+                </Grid>
+
+
+                <!-- MODO EDITÁVEL -->
+
+                <ControlTemplate.Triggers>
+
+                    <Trigger Property="IsEditable"
+                             Value="True">
+
+                        <Setter TargetName="selecionado"
+                                Property="Visibility"
+                                Value="Collapsed"/>
+
+                        <Setter TargetName="PART_EditableTextBox"
+                                Property="Visibility"
+                                Value="Visible"/>
+
+                    </Trigger>
+
+                </ControlTemplate.Triggers>
+
+            </ControlTemplate>
+
+        </Setter.Value>
+
+    </Setter>
+
+</Style>
 
 
         <!-- CHECKBOX -->
