@@ -205,8 +205,6 @@
 
 
         <!-- COMBOBOX -->
-
-        <!-- COMBOBOX -->
 <Style TargetType="ComboBox">
 
     <Setter Property="ScrollViewer.CanContentScroll"
@@ -424,7 +422,7 @@
         </Style>
 
 
-        <!-- PROGRESS -->
+        <!-- PROGRESS / NÃO MEXA AQUI CARA-->
 
         <Style TargetType="ProgressBar">
 
